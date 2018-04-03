@@ -9,7 +9,7 @@ import ProtectedRoute from './ProtectedRoute';
 import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
 import { Switch, Route } from 'react-router-dom';
-// import Coin from './Coin';
+import Coin from './Coin';
 
 class App extends Component {
   render() {
@@ -20,6 +20,7 @@ class App extends Component {
         <FetchUser>
           <Switch>
             <ProtectedRoute exact path='/' component={Home} />
+            <ProtectedRoute exact path='/coins/:id' component={Coin} />            
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
             <Route component={NoMatch} />

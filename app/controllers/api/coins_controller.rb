@@ -1,6 +1,6 @@
 class Api::CoinsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_coin, only: [:show, :update, :destroy]
+  before_action :set_coin, only: [:update, :destroy]
   BASE_URL = 'https://api.coinmarketcap.com/v1/ticker/' # is the base url for my external api
 
   def index
@@ -38,7 +38,8 @@ class Api::CoinsController < ApplicationController
   end
 
   def show
-    render json: @coins
+    res = HTTParty.get("#{BASE_URL}#{params[:id]}")
+    render json: res[0]
   end
 
   # PUT /api/coins/:id
@@ -54,4 +55,9 @@ class Api::CoinsController < ApplicationController
 
   def destroy
   end
+
+  private 
+    def set_coin
+      @coin = Coin.find(params[:id])
+    end
 end
